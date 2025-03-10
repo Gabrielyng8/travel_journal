@@ -20,6 +20,12 @@ class _AddLogScreenState extends State<AddLogScreen> {
 
   void _submitNewLog() {
     if (_formKey.currentState!.validate()) {
+      if (_selectedDateRange == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select a date range')),
+        );
+        return;
+      }
       _formKey.currentState!.save();
 
       var newLog = JournalLog(
@@ -96,6 +102,9 @@ class _AddLogScreenState extends State<AddLogScreen> {
                       _selectedDateRange == null
                           ? 'Duration'
                           : '${DateFormat('dd/MM').format(_selectedDateRange!.start)} - ${DateFormat('dd/MM').format(_selectedDateRange!.end)}',
+                      style: TextStyle(
+                        color: _selectedDateRange == null ? Colors.red : Colors.black,
+                      ),
                     ),
                   ),
                   TextButton(
