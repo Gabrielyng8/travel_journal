@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Add this import for date formatting
 import 'package:travel_journal/data/dummy_logs.dart';
 import 'package:travel_journal/models/log.dart';
+import 'dart:convert';
+import 'dart:io';
 
 import 'add.dart';
 
@@ -95,7 +97,9 @@ class _LogsScreenState extends State<LogsScreen> {
                         Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
                       ],
                     ),
-                    trailing: const Icon(Icons.image, size: 50),
+                    trailing: log.images != null && log.images!.isNotEmpty
+                      ? Image.memory(base64Decode(log.images![0]), width: 100, height: 100)
+                      : null,
                   ),
                 );
               },
