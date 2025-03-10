@@ -24,19 +24,13 @@ class _LogsScreenState extends State<LogsScreen> {
 
     setState(() {
       // Add the new log to the list of logs
-      logList.add(newLog!);
+      if (newLog != null) {
+        logList.add(newLog);
+      }
     });
   }
 
   String _formatDate(DateTimeRange date) {
-    // final now = DateTime.now();
-    // final difference = now.difference(date).inDays;
-    // if (difference > 365) {
-    //   return DateFormat.yMMMd().format(date); // Show year if older than a year
-    // } else {
-    //   return DateFormat.MMMd().format(date); // Show only month and day
-    // }
-
     // If date start is older than a year, show the year
     if (DateTime.now().difference(date.start).inDays > 365) {
       return '${DateFormat.yMMMd().format(date.start)} - ${DateFormat.yMMMd().format(date.end)}';
