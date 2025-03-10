@@ -29,7 +29,10 @@ class LogDetailsScreen extends StatelessWidget {
                     children: log.images!.map((image) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Image.memory(base64Decode(image)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.memory(base64Decode(image)),
+                        ),
                       );
                     }).toList(),
                   )
