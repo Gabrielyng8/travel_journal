@@ -3,9 +3,9 @@ import 'package:intl/intl.dart'; // Add this import for date formatting
 import 'package:travel_journal/data/dummy_logs.dart';
 import 'package:travel_journal/models/log.dart';
 import 'dart:convert';
-import 'dart:io';
 
 import 'add.dart';
+import 'log_details.dart';
 
 class LogsScreen extends StatefulWidget {
   const LogsScreen({super.key});
@@ -30,6 +30,14 @@ class _LogsScreenState extends State<LogsScreen> {
         logList.add(newLog);
       }
     });
+  }
+
+  void _viewLogDetails(JournalLog log) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => LogDetailsScreen(log: log),
+      ),
+    );
   }
 
   String _formatDate(DateTimeRange date) {
@@ -100,6 +108,7 @@ class _LogsScreenState extends State<LogsScreen> {
                     trailing: log.images != null && log.images!.isNotEmpty
                       ? Image.memory(base64Decode(log.images![0]), width: 100, height: 100)
                       : null,
+                    onTap: () => _viewLogDetails(log),
                   ),
                 );
               },
