@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Add this import for date formatting
 import 'package:travel_journal/data/dummy_logs.dart';
 import 'package:travel_journal/models/log.dart';
 
@@ -25,6 +26,23 @@ class _LogsScreenState extends State<LogsScreen> {
       // Add the new log to the list of logs
       logList.add(newLog!);
     });
+  }
+
+  String _formatDate(DateTimeRange date) {
+    // final now = DateTime.now();
+    // final difference = now.difference(date).inDays;
+    // if (difference > 365) {
+    //   return DateFormat.yMMMd().format(date); // Show year if older than a year
+    // } else {
+    //   return DateFormat.MMMd().format(date); // Show only month and day
+    // }
+
+    // If date start is older than a year, show the year
+    if (DateTime.now().difference(date.start).inDays > 365) {
+      return '${DateFormat.yMMMd().format(date.start)} - ${DateFormat.yMMMd().format(date.end)}';
+    } else {
+      return '${DateFormat.MMMd().format(date.start)} - ${DateFormat.MMMd().format(date.end)}';
+    }
   }
 
   @override
@@ -78,7 +96,7 @@ class _LogsScreenState extends State<LogsScreen> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${log.date}', style: const TextStyle(color: Colors.grey)),
+                        Text(_formatDate(log.date), style: const TextStyle(color: Colors.grey)),
                         const SizedBox(height: 8),
                         Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
                       ],

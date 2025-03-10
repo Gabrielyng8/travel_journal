@@ -33,4 +33,14 @@ final logList = [
     ),
     location: 'Tokyo',
   ),
+  JournalLog(
+    id: '4',
+    title: 'Fourth Log',
+    description: 'This is the fourth log',
+    date: DateTimeRange(
+      start: DateTime.now().subtract(Duration(days: 400)),
+      end: DateTime.now().subtract(Duration(days: 395)),
+    ),
+    location: 'London',
+  ),
 ];
