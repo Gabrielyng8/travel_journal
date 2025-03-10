@@ -1,4 +1,5 @@
 class JournalLog {
+  final String id;
   final String title;
   final String description;
   final String location;
@@ -6,6 +7,7 @@ class JournalLog {
   final List<String>? images; // Optional array of base64 strings
 
   JournalLog({
+    required this.id,
     required this.title,
     required this.description,
     required this.location,
