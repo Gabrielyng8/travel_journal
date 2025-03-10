@@ -27,7 +27,6 @@ class _LogsScreenState extends State<LogsScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +65,30 @@ class _LogsScreenState extends State<LogsScreen> {
               ],
             ),
           ),
-          // Placeholder for the list of logs
-          Center(child: Text('Your travel logs will appear here')),
+          Expanded(
+            child: ListView.builder(
+              itemCount: logList.length,
+              itemBuilder: (ctx, index) {
+                final log = logList[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(16.0),
+                    title: Text(log.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${log.date}', style: const TextStyle(color: Colors.grey)),
+                        const SizedBox(height: 8),
+                        Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                    trailing: const Icon(Icons.image, size: 50),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
