@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 class JournalLog {
   final String id;
   final String title;
   final String description;
   final String location;
-  final DateTime date;
+  final DateTimeRange date;
   final List<String>? images; // Optional array of base64 strings
 
   JournalLog({

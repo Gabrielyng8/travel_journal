@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:travel_journal/data/dummy_logs.dart';
+import 'package:travel_journal/models/log.dart';
 
 import 'add.dart';
 
@@ -12,6 +14,20 @@ class LogsScreen extends StatefulWidget {
 }
 
 class _LogsScreenState extends State<LogsScreen> {
+  void _addItem() async {
+    var newLog = await Navigator.of(context).push<JournalLog>(
+      MaterialPageRoute(
+        builder: (ctx) => const AddLogScreen(),
+      ),
+    );
+
+    setState(() {
+      // Add the new log to the list of logs
+      logList.add(newLog!);
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,13 +72,7 @@ class _LogsScreenState extends State<LogsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to 'add.dart' screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddLogScreen(),
-            ), // Placeholder screen
-          );
+          _addItem();
         },
         child: const Icon(Icons.add),
       ),
