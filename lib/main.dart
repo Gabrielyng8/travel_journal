@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'logs.dart';
 
 void main() {
   runApp(const MainApp());
@@ -40,6 +41,9 @@ class MainApp extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+                const Expanded(
+                  child: LogsScreen(),
                 ),
               ],
             ),
