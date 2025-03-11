@@ -102,6 +102,8 @@ class _LogsScreenState extends State<LogsScreen> {
                       children: [
                         Text(_formatDate(log.date), style: const TextStyle(color: Colors.grey)),
                         const SizedBox(height: 8),
+                        Text(log.location, style: const TextStyle(color: Colors.black, fontStyle: FontStyle.italic)),
+                        const SizedBox(height: 8),
                         Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
                       ],
                     ),

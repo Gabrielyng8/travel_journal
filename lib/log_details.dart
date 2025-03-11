@@ -22,6 +22,8 @@ class LogDetailsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text('${DateFormat.yMMMd().format(log.date.start)} - ${DateFormat.yMMMd().format(log.date.end)}', style: const TextStyle(color: Colors.grey)),
             const SizedBox(height: 16),
+            Text(log.location, style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic)),
+            const SizedBox(height: 16),
             Text(log.description),
             const SizedBox(height: 16),
             log.images != null && log.images!.isNotEmpty

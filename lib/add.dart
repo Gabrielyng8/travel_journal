@@ -19,6 +19,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
 
   var _enteredLocation = '';
   var _enteredJournalEntry = '';
+  var _enteredTitle = '';
   DateTimeRange? _selectedDateRange;
   final List<String> _base64Images = [];
 
@@ -79,11 +80,11 @@ class _AddLogScreenState extends State<AddLogScreen> {
 
       var newLog = JournalLog(
         id: DateTime.now().toString(),
-        title: _enteredLocation, // Assuming title is the location
+        title: _enteredTitle,
         description: _enteredJournalEntry,
         location: _enteredLocation,
         date: _selectedDateRange!,
-        images: _base64Images, // Store Base64 images
+        images: _base64Images,
       );
 
       Navigator.of(context).pop(newLog);
@@ -131,6 +132,19 @@ class _AddLogScreenState extends State<AddLogScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Title'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _enteredTitle = value!;
+                },
+              ),
+              const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Location'),
                 validator: (value) {
