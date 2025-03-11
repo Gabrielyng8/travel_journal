@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Add this import for date formatting
-import 'package:travel_journal/data/dummy_logs.dart';
+import 'package:intl/intl.dart'; 
 import 'package:travel_journal/models/log.dart';
 import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'add.dart';
 import 'log_details.dart';
@@ -17,6 +17,28 @@ class LogsScreen extends StatefulWidget {
 }
 
 class _LogsScreenState extends State<LogsScreen> {
+  List<JournalLog> logList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLogsFromDatabase();
+  }
+
+  Future<void> _fetchLogsFromDatabase() async {
+    DatabaseReference logsRef = FirebaseDatabase.instance.ref('logs');
+    DataSnapshot snapshot = await logsRef.get();
+
+    if (snapshot.value == null) {
+      return;
+    }
+
+    final data = snapshot.value as Map<dynamic, dynamic>;
+    setState(() {
+      logList = data.values.map((json) => JournalLog.fromJson(json)).toList();
+    });
+  }
+
   void _addItem() async {
     var newLog = await Navigator.of(context).push<JournalLog>(
       MaterialPageRoute(

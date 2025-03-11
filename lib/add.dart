@@ -80,7 +80,6 @@ class _AddLogScreenState extends State<AddLogScreen> {
       _formKey.currentState!.save();
 
       var newLog = JournalLog(
-        id: DateTime.now().toString(),
         title: _enteredTitle,
         description: _enteredJournalEntry,
         location: _enteredLocation,
