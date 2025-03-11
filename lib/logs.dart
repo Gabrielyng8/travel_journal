@@ -114,25 +114,38 @@ class _LogsScreenState extends State<LogsScreen> {
               itemCount: logList.length,
               itemBuilder: (ctx, index) {
                 final log = logList[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(16.0),
-                    title: Text(log.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(_formatDate(log.date), style: const TextStyle(color: Colors.grey)),
-                        const SizedBox(height: 8),
-                        Text(log.location, style: const TextStyle(color: Colors.black, fontStyle: FontStyle.italic)),
-                        const SizedBox(height: 8),
-                        Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
-                      ],
+                return InkWell(
+                  onTap: () => _viewLogDetails(log),
+                  child: Card(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(log.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                const SizedBox(height: 8),
+                                Text(_formatDate(log.date), style: const TextStyle(color: Colors.grey)),
+                                const SizedBox(height: 8),
+                                Text(log.location, style: const TextStyle(color: Colors.black, fontStyle: FontStyle.italic)),
+                                const SizedBox(height: 8),
+                                Text(log.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+                              ],
+                            ),
+                          ),
+                          if (log.images != null && log.images!.isNotEmpty)
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              height: MediaQuery.of(context).size.width * 0.25,
+                              margin: const EdgeInsets.only(left: 16.0),
+                              child: Image.memory(base64Decode(log.images![0]), fit: BoxFit.cover),
+                            ),
+                        ],
+                      ),
                     ),
-                    trailing: log.images != null && log.images!.isNotEmpty
-                      ? Image.memory(base64Decode(log.images![0]), width: 100, height: 100)
-                      : null,
-                    onTap: () => _viewLogDetails(log),
                   ),
                 );
               },
