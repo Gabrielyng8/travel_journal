@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_journal/models/log.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class AddLogScreen extends StatefulWidget {
   const AddLogScreen({super.key});
@@ -68,7 +69,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
     );
   }
 
-  void _submitNewLog() {
+  void _submitNewLog() async {
     if (_formKey.currentState!.validate()) {
       if (_selectedDateRange == null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -86,6 +87,22 @@ class _AddLogScreenState extends State<AddLogScreen> {
         date: _selectedDateRange!,
         images: _base64Images,
       );
+
+      // Convert the new log to a JSON object
+      var logJson = {
+        'title': newLog.title,
+        'location': newLog.location,
+        'description': newLog.description,
+        'date': {
+          'start': newLog.date.start.toIso8601String(),
+          'end': newLog.date.end.toIso8601String(),
+        },
+        'images': newLog.images,
+      };
+
+      // Upload the JSON object to the Firebase Realtime Database
+      DatabaseReference ref = FirebaseDatabase.instance.ref('logs').push();
+      await ref.set(logJson);
 
       Navigator.of(context).pop(newLog);
     }
