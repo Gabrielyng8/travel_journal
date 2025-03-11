@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_journal/models/log.dart';
 
@@ -17,6 +20,52 @@ class _AddLogScreenState extends State<AddLogScreen> {
   var _enteredLocation = '';
   var _enteredJournalEntry = '';
   DateTimeRange? _selectedDateRange;
+  final List<String> _base64Images = [];
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      List<int> imageBytes = await imageFile.readAsBytes();
+      String base64String = base64Encode(imageBytes);
+
+      setState(() {
+        _base64Images.add(base64String);
+      });
+    }
+  }
+
+  void _showImagePickerDialog() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text('Take a Photo'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from Gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void _submitNewLog() {
     if (_formKey.currentState!.validate()) {
@@ -34,7 +83,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
         description: _enteredJournalEntry,
         location: _enteredLocation,
         date: _selectedDateRange!,
-        images: [], // Placeholder for images
+        images: _base64Images, // Store Base64 images
       );
 
       Navigator.of(context).pop(newLog);
@@ -47,7 +96,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-    if (picked != null && picked != _selectedDateRange) {
+    if (picked != null) {
       setState(() {
         _selectedDateRange = picked;
       });
@@ -99,9 +148,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      _selectedDateRange == null
-                          ? 'Duration'
-                          : '${DateFormat('dd/MM').format(_selectedDateRange!.start)} - ${DateFormat('dd/MM').format(_selectedDateRange!.end)}',
+                      _selectedDateRange == null ? 'Duration' : '${DateFormat('dd/MM').format(_selectedDateRange!.start)} - ${DateFormat('dd/MM').format(_selectedDateRange!.end)}',
                       style: TextStyle(
                         color: _selectedDateRange == null ? Colors.red : Colors.black,
                       ),
@@ -133,11 +180,33 @@ class _AddLogScreenState extends State<AddLogScreen> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // Handle image upload
+                  _showImagePickerDialog();
                 },
                 child: const Text('Take / Upload Photos'),
               ),
               const SizedBox(height: 16),
+
+              _base64Images.isNotEmpty
+                  ? Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children:
+                        _base64Images.map((base64String) {
+                          return Stack(
+                            children: [
+                              Image.memory(
+                                base64Decode(base64String),
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                  )
+                  : const Text("No images selected."),
+              const SizedBox(height: 16),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
