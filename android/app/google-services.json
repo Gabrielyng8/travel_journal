@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "189308148705",
+    "firebase_url": "https://travel-journal-app-377b6-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "travel-journal-app-377b6",
+    "storage_bucket": "travel-journal-app-377b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189308148705:android:9934494f6c4573bc9910a0",
+        "android_client_info": {
+          "package_name": "com.example.travel_journal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBop9d5Vk8DAskfAc06KecioTqnQXw_QZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

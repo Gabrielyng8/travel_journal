@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "travel-journal-app-377b6",
+                    "appId": "1:189308148705:android:9934494f6c4573bc9910a0",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "travel-journal-app-377b6",
+                    "configurations": {
+                        "android": "1:189308148705:android:9934494f6c4573bc9910a0",
+                        "ios": "1:189308148705:ios:667a22b44b6ed9719910a0",
+                        "macos": "1:189308148705:ios:667a22b44b6ed9719910a0",
+                        "web": "1:189308148705:web:53b96b152001e9999910a0",
+                        "windows": "1:189308148705:web:007ad6071da451739910a0"
+                    }
+                }
+            }
+        }
+    }
+}
