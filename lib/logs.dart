@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'add.dart';
 import 'log_details.dart';
+import 'responsive_screen.dart';
 
 class LogsScreen extends StatefulWidget {
   const LogsScreen({super.key});
@@ -80,15 +81,16 @@ class _LogsScreenState extends State<LogsScreen> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined, size: 30),
-            onPressed: () {},
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: const Icon(Icons.account_circle_outlined, size: 30),
-              onPressed: () {},
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => ResponsiveScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              'Responsive Screen',
             ),
           ),
         ],

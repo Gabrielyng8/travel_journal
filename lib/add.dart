@@ -128,19 +128,6 @@ class _AddLogScreenState extends State<AddLogScreen> {
           'Travel Journal',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined, size: 30),
-            onPressed: () {},
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: const Icon(Icons.account_circle_outlined, size: 30),
-              onPressed: () {},
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -212,7 +199,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
                 onPressed: () {
                   _showImagePickerDialog();
                 },
-                child: const Text('Take / Upload Photos'),
+                child: const Text('Take / Upload Photos',),
               ),
               const SizedBox(height: 16),
 
