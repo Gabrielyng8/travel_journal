@@ -26,7 +26,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
 
   final ImagePicker _picker = ImagePicker();
 
-  Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source) async { // Pick an image from the gallery or camera
     final XFile? pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
@@ -39,7 +39,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
     }
   }
 
-  void _showImagePickerDialog() {
+  void _showImagePickerDialog() { // Show a dialog to pick an image
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -51,15 +51,15 @@ class _AddLogScreenState extends State<AddLogScreen> {
                 title: const Text('Take a Photo'),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImage(ImageSource.camera);
-                },
+                  _pickImage(ImageSource.camera); // Pick an image from the camera
+                }, 
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
                 title: const Text('Choose from Gallery'),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImage(ImageSource.gallery);
+                  _pickImage(ImageSource.gallery); // Pick an image from the gallery
                 },
               ),
             ],
@@ -71,8 +71,8 @@ class _AddLogScreenState extends State<AddLogScreen> {
 
   void _submitNewLog() async {
     if (_formKey.currentState!.validate()) {
-      if (_selectedDateRange == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
+      if (_selectedDateRange == null) { 
+        ScaffoldMessenger.of(context).showSnackBar(  // Show a snackbar if no date range is selected
           const SnackBar(content: Text('Please select a date range')),
         );
         return;
@@ -107,7 +107,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
     }
   }
 
-  void _pickDateRange() async {
+  void _pickDateRange() async { // Pick a date range
     final DateTimeRange? picked = await showDateRangePicker(
       context: context,
       firstDate: DateTime(2000),
@@ -203,7 +203,7 @@ class _AddLogScreenState extends State<AddLogScreen> {
               ),
               const SizedBox(height: 16),
 
-              _base64Images.isNotEmpty
+              _base64Images.isNotEmpty // Display previews of the images if there are any
                   ? Wrap(
                     spacing: 8.0,
                     runSpacing: 8.0,

@@ -26,11 +26,11 @@ class _LogsScreenState extends State<LogsScreen> {
     _fetchLogsFromDatabase();
   }
 
-  Future<void> _fetchLogsFromDatabase() async {
+  Future<void> _fetchLogsFromDatabase() async { // Fetch logs from the database
     DatabaseReference logsRef = FirebaseDatabase.instance.ref('logs');
     DataSnapshot snapshot = await logsRef.get();
 
-    if (snapshot.value == null) {
+    if (snapshot.value == null) { // If there are no logs, return
       return;
     }
 
@@ -40,7 +40,7 @@ class _LogsScreenState extends State<LogsScreen> {
     });
   }
 
-  void _addItem() async {
+  void _addItem() async { // Add a new log
     var newLog = await Navigator.of(context).push<JournalLog>(
       MaterialPageRoute(
         builder: (ctx) => const AddLogScreen(),
@@ -55,7 +55,7 @@ class _LogsScreenState extends State<LogsScreen> {
     });
   }
 
-  void _viewLogDetails(JournalLog log) {
+  void _viewLogDetails(JournalLog log) { // View log details
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => LogDetailsScreen(log: log),
@@ -63,7 +63,7 @@ class _LogsScreenState extends State<LogsScreen> {
     );
   }
 
-  String _formatDate(DateTimeRange date) {
+  String _formatDate(DateTimeRange date) { // Format the date
     // If date start is older than a year, show the year
     if (DateTime.now().difference(date.start).inDays > 365) {
       return '${DateFormat.yMMMd().format(date.start)} - ${DateFormat.yMMMd().format(date.end)}';
@@ -116,7 +116,7 @@ class _LogsScreenState extends State<LogsScreen> {
               itemCount: logList.length,
               itemBuilder: (ctx, index) {
                 final log = logList[index];
-                return InkWell(
+                return InkWell( // Added InkWell - a Material widget that makes its child interactive, so that the user can tap on it
                   onTap: () => _viewLogDetails(log),
                   child: Card(
                     margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -138,7 +138,7 @@ class _LogsScreenState extends State<LogsScreen> {
                               ],
                             ),
                           ),
-                          if (log.images != null && log.images!.isNotEmpty)
+                          if (log.images != null && log.images!.isNotEmpty) // If there are images, display the first image
                             Container(
                               width: MediaQuery.of(context).size.width * 0.25,
                               height: MediaQuery.of(context).size.width * 0.25,
@@ -155,7 +155,7 @@ class _LogsScreenState extends State<LogsScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton( 
         onPressed: () {
           _addItem();
         },

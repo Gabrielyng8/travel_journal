@@ -12,7 +12,7 @@ class ResponsiveScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 600) {
-            // Small screen
+            // Small screen - show two containers in a column
             return Column(
               children: [
                 Container(
@@ -30,7 +30,7 @@ class ResponsiveScreen extends StatelessWidget {
               ],
             );
           } else if (constraints.maxWidth < 1200) {
-            // Medium screen
+            // Medium screen - show two containers in a row
             return Row(
               children: [
                 Expanded(
@@ -50,7 +50,7 @@ class ResponsiveScreen extends StatelessWidget {
               ],
             );
           } else {
-            // Large screen
+            // Large screen - show three containers in a grid
             return GridView.count(
               crossAxisCount: 3,
               children: [

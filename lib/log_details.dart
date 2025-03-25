@@ -16,7 +16,7 @@ class LogDetailsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: ListView( // ListView to allow for scrolling and proper display of content
           children: [
             Text(log.title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
@@ -27,7 +27,7 @@ class LogDetailsScreen extends StatelessWidget {
             Text(log.description),
             const SizedBox(height: 16),
             log.images != null && log.images!.isNotEmpty
-                ? Column(
+                ? Column( // Column to display multiple images
                     children: log.images!.map((image) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
