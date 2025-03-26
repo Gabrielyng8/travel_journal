@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_journal/notifservice.dart';
+import 'package:travel_journal/notification_service.dart';
 import 'logs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

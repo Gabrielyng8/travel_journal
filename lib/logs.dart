@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:travel_journal/models/log.dart';
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:travel_journal/notifservice.dart';
+import 'package:travel_journal/notification_service.dart';
 
 import 'add.dart';
 import 'log_details.dart';
