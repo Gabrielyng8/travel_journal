@@ -7,8 +7,6 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  NotifService().initNotification();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -21,8 +19,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove the debug banner
-      home: Scaffold(body: SafeArea(child: LogsScreen())),
+      debugShowCheckedModeBanner: false,
+      home: Builder(
+        builder: (context) {
+          NotifService().initNotification(context);
+          return const SafeArea(child: LogsScreen());
+        },
+      ),
     );
   }
 }
