@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class NotifService {
-  final notifications = FlutterLocalNotificationsPlugin();
+class NotificationService {
+  final notificationPlugin = FlutterLocalNotificationsPlugin();
 
   bool _isInitialized = false;
   bool get isInitialized => _isInitialized;
@@ -14,7 +14,7 @@ class NotifService {
     const initSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initSettings = InitializationSettings(android: initSettingsAndroid);
 
-    final androidPlugin = notifications.resolvePlatformSpecificImplementation<
+    final androidPlugin = notificationPlugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
 
     final granted = await androidPlugin?.requestNotificationsPermission();
@@ -38,7 +38,7 @@ class NotifService {
       );
     }
 
-    await notifications.initialize(initSettings);
+    await notificationPlugin.initialize(initSettings);
     _isInitialized = true;
   }
 
@@ -62,7 +62,7 @@ class NotifService {
     required String body,
   }) async {
     
-    await notifications.show(
+    await notificationPlugin.show(
       0,
       title,
       body,
