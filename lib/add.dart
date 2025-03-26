@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_journal/models/log.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:travel_journal/notification_service.dart';
 
 class AddLogScreen extends StatefulWidget {
   const AddLogScreen({super.key});
@@ -102,6 +103,8 @@ class _AddLogScreenState extends State<AddLogScreen> {
       // Upload the JSON object to the Firebase Realtime Database
       DatabaseReference ref = FirebaseDatabase.instance.ref('logs').push();
       await ref.set(logJson);
+
+      NotificationService().showNotification( title: 'Travel Journal', body: 'You have added a new log 📄');
 
       Navigator.of(context).pop(newLog);
     }

@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:travel_journal/models/log.dart';
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:travel_journal/notification_service.dart';
 
 import 'add.dart';
 import 'log_details.dart';
@@ -99,26 +98,17 @@ class _LogsScreenState extends State<LogsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
+          const Padding(
+            padding: EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 16.0,
             ), // Added horizontal padding
             child: Row(
               children: [
-                const Text('Your logs', style: TextStyle(fontSize: 20)),
-                const SizedBox(width: 8),
-                const Icon(Icons.location_on_outlined),
-                const SizedBox(width: 8),
-                TextButton(
-                  onPressed: () {
-                    NotifService().showNotification(
-                      title: 'Travel Journal',
-                      body: 'You have added a new log 📄',
-                    );
-                  },
-                  child: const Text('test')
-                  ),
+                Text('Your logs', style: TextStyle(fontSize: 20)),
+                SizedBox(width: 8),
+                Icon(Icons.location_on_outlined),
+                SizedBox(width: 8),
               ],
             ),
           ),

@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) {
-          NotifService().initNotification(context);
+          NotificationService().initNotification(context);
           return const SafeArea(child: LogsScreen());
         },
       ),
